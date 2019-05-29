@@ -1,9 +1,42 @@
 <html>
 <title> My World</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <body>
-<h1> Welcome to my world :) </h1>
-<h1>Hello, Rails!</h1>
 <%= link_to "My Blog", posts_path %>
-<p> Hi, I am Tharshini </p>
+<div ng-app="myApp", ng-controller="myController", ng-init="false">
+  <h1> Welcome to {{name}}'s Site'</h1>
+  <button ng-click="go()">My Blog</button>
+
+  <div ng-show="a">
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Content</th>
+      </tr>
+      <tr ng-repeat="x in val">
+        <td>{{x.post.title}}</td>
+        <td>{{x.post.content}}</td>
+    </tr>
+      </tr>
+    </table>
+
+</div>
+<script>
+var app=angular.module("myApp",[])
+app.controller("myController",function($scope, $http) {
+  $scope.name="Tharshini"
+  $scope.go=function(){
+  $scope.a=!$scope.a
+  $http({
+    url : '/posts/preview' ,
+    method : 'get'
+  }).then(function(res){
+    $scope.val=res.data.posts;
+  });
+}
+
+
+});
+</script>
 </body>
 </html>

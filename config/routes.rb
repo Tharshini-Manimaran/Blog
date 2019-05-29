@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :posts, :has_many => :comments
+  map.resources :posts,:path_names => {:new => "make", :edit => "change"} ,:collection => {:preview => :get}, :member => {:like => :get} ,:has_many => :comments
 
   # The priority is based upon order of creation: first created -> highest priority.
 

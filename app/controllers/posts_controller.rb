@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.xml
   before_filter :find_post,
-  :only => [:show, :edit, :update, :destroy]
+  :only => [:show, :edit, :update, :destroy, :like]
 
   def index
     @posts = Post.all
@@ -16,7 +16,6 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.xml
   def show
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @post }
@@ -27,7 +26,6 @@ class PostsController < ApplicationController
   # GET /posts/new.xml
   def new
     @post = Post.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @post }
@@ -59,7 +57,6 @@ class PostsController < ApplicationController
   # PUT /posts/1.xml
   def update
 
-
     respond_to do |format|
       if @post.update_attributes(params[:post])
         format.html { redirect_to(@post, :notice => 'Post was successfully updated.') }
@@ -82,6 +79,26 @@ class PostsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def preview
+    posts = Post.all
+    render :status => :ok, :json => {:posts => posts}
+  end
+
+  def like
+
+  end
+
+  # ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
+  #   if instance.error_message.kind_of?(Array)
+  #     %(#{html_tag}<span class="validation-error">&nbsp;
+  #       #{instance.error_message.join(',')}</span>)
+  #   else
+  #     %(#{html_tag}<span class="validation-error">&nbsp;
+  #       #{instance.error_message}</span>)
+  #   end
+  # end
+
   private
   def find_post
     @post = Post.find(params[:id])

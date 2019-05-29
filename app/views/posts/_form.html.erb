@@ -1,24 +1,26 @@
 <% @post.tags.build if @post.tags.empty? %>
-<% form_for(@post) do |post_form| %>
-  <%= post_form.error_messages %>
+<% form_for(@post) do |p| %>
+  <%= p.error_messages :header_message => "Invalid Entry",
+   :message => "The Following Values are False", :header_tag => :h3%>
 
   <p>
-    <%= post_form.label :name %><br />
-    <%= post_form.text_field :name %>
+    <!-- <%= p.label :name %><br /> -->
+    Name: <%= p.text_field :name %>
   </p>
   <p>
-    <%= post_form.label :title, "title" %><br />
-    <%= post_form.text_field :title %>
+    <!-- <%= p.label :title, "title" %><br /> -->
+    Title: &nbsp; &nbsp;<%= p.text_field :title %>
   </p>
   <p>
-    <%= post_form.label :content %><br />
-    <%= post_form.text_area :content %>
+    <!-- <%= p.label :content %><br /> -->
+    Content:
+    <br> <%= p.text_area :content %>
   </p>
   <h2>Tags</h2>
-  <% post_form.fields_for :tags do |tag_form| %>
+  <% p.fields_for :tags do |tag_form| %>
     <p>
       <%= tag_form.label :name, 'Tag:' %>
-      <%= tag_form.text_field :name %>
+       <%= tag_form.text_field :name %>
     </p>
     <% unless tag_form.object.nil? || tag_form.object.new_record? %>
       <p>
@@ -27,8 +29,11 @@
       </p>
     <% end %>
   <% end %>
-
+ <h3>
+   <%=p.label :terms_of_service, 'I Accept' %>
+   <%=p.check_box :terms_of_service %>
+ </h3>
   <p>
-    <%= post_form.submit "Save" %>
+    <%= p.submit button_label %>
   </p>
 <% end %>

@@ -3,10 +3,13 @@ class CommentsController < ApplicationController
 
   def index
      @comments = @post.comments
+     
+
   end
 
   def show
     @comment = @post.comments.find(params[:id])
+
   end
 
   def new

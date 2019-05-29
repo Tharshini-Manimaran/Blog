@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Shopping cart</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+</head>
+<body ng-app="myApp", ng-controller="myCtrl">
+	<div class="w3-container">
+		<ol>
+		<li ng-repeat="x in cart">{{x}}  <button ng-click="rem($index)" >x</button></li>
+		
+	</ol>
+	<form name="myForm">
+		Product: <input type="text" ng-model="name"><br>
+		<button ng-click="add()" name="Add">Add</button>
+	</form>
+</div>
+<script>
+	var app=angular.module("myApp",[])
+	app.controller("myCtrl",function($scope){
+		$scope.cart=["Egg","Milk","Lays"]
+		$scope.add=function(){
+		
+		$scope.cart.push($scope.name);
+		$scope.name=""
+		}
+		$scope.rem=function(i){
+			
+
+			$scope.cart.splice(i,1)
+			
+		}
+	})
+
+</script>
+</body>
+</html>
